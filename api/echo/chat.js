@@ -47,7 +47,7 @@ export default async function handler(req, res) {
     console.error("OpenAI API Error:", error.message);
     
     if (error.status === 404 || error.message.includes('model')) {
-      return res.status(500).json({ error: "Modelo OpenAI inválido ou indisponível. Verifica OPENAI_MODEL no .env." });
+      return res.status(500).json({ error: "Modelo OpenAI inválido ou indisponível. Verifica OPENAI_MODEL no ambiente." });
     }
     
     return res.status(500).json({ error: "Não consegui responder agora. Verifica a configuração da OpenAI." });
