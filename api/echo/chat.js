@@ -23,7 +23,7 @@ export default async function handler(req, res) {
       { role: "user", content: message }
     ];
 
-    const model = process.env.OPENAI_MODEL || "gpt-5.5";
+    const model = process.env.OPENAI_MODEL || "gpt-5.2";
 
     const completion = await openai.chat.completions.create({
       model: model,
