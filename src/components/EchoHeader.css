@@ -1,0 +1,62 @@
+.echo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: transparent;
+  z-index: 10;
+}
+
+.echo-logo {
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+}
+
+.echo-header-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.echo-state-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.state-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--text-secondary);
+}
+
+/* State variants */
+.state-pronta .state-dot { background-color: var(--text-secondary); }
+.state-a-ouvir .state-dot { background-color: var(--accent-secondary); box-shadow: 0 0 8px var(--accent-secondary); }
+.state-a-pensar .state-dot { background-color: var(--accent-primary); box-shadow: 0 0 8px var(--accent-primary); animation: pulse-soft 1.5s infinite; }
+.state-a-responder .state-dot { background-color: var(--text-primary); box-shadow: 0 0 8px var(--text-primary); }
+.state-em-pausa .state-dot { background-color: #4B5563; }
+
+.icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.icon-btn:hover {
+  background-color: var(--bg-surface-hover);
+}

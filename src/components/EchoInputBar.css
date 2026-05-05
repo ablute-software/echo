@@ -1,0 +1,69 @@
+.echo-input-container {
+  padding: 12px 16px;
+  margin: 16px;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+  transition: opacity 0.3s ease;
+}
+
+.echo-input-container.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.echo-input-form {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 12px;
+}
+
+.echo-text-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  padding: 8px 4px;
+}
+
+.echo-text-input::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+.echo-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.mic-btn {
+  background: var(--bg-surface-hover);
+  color: var(--text-primary);
+}
+
+.mic-btn.listening {
+  background: rgba(34, 211, 238, 0.15);
+  color: var(--accent-secondary);
+  box-shadow: 0 0 15px rgba(34, 211, 238, 0.2);
+  animation: pulse-soft 1.5s infinite;
+}
+
+.send-btn {
+  background: var(--accent-primary);
+  color: var(--bg-main);
+  box-shadow: 0 4px 12px rgba(167, 139, 250, 0.3);
+}
+
+.send-btn:active {
+  transform: scale(0.95);
+}
