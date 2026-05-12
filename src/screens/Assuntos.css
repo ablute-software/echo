@@ -1,0 +1,58 @@
+.assuntos-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.assuntos-header {
+  margin-bottom: 32px;
+}
+
+.assuntos-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  opacity: 0.8;
+}
+
+.topics-section {
+  margin-bottom: 32px;
+}
+
+.section-title {
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  opacity: 0.7;
+}
+
+.topics-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.topic-chip {
+  padding: 10px 18px;
+  border-radius: 24px;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.topic-chip:hover {
+  background: var(--bg-surface-hover);
+  border-color: rgba(167, 139, 250, 0.3);
+}
+
+.topic-chip.recurring {
+  background: rgba(167, 139, 250, 0.05);
+  border-color: rgba(167, 139, 250, 0.15);
+}
