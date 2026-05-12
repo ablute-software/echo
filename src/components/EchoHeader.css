@@ -14,6 +14,10 @@
   color: var(--text-primary);
 }
 
+.echo-logo-accent {
+  color: var(--accent-primary);
+}
+
 .echo-header-center {
   flex: 1;
   display: flex;
@@ -24,13 +28,14 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 4px 10px;
+  padding: 4px 12px;
   border-radius: 20px;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-color);
+  background: rgba(14, 86, 100, 0.4);
+  border: 1px solid rgba(37, 230, 240, 0.2);
   font-size: 0.75rem;
   font-weight: 500;
-  color: var(--text-secondary);
+  color: var(--text-primary);
+  backdrop-filter: blur(8px);
 }
 
 .state-dot {
@@ -41,8 +46,8 @@
 }
 
 /* State variants */
-.state-pronta .state-dot { background-color: var(--text-secondary); }
-.state-a-ouvir .state-dot { background-color: var(--accent-secondary); box-shadow: 0 0 8px var(--accent-secondary); }
+.state-pronta .state-dot { background-color: var(--accent-secondary); box-shadow: 0 0 8px var(--accent-secondary); }
+.state-a-ouvir .state-dot { background-color: #fff; box-shadow: 0 0 10px #fff; }
 .state-a-pensar .state-dot { background-color: var(--accent-primary); box-shadow: 0 0 8px var(--accent-primary); animation: pulse-soft 1.5s infinite; }
 .state-a-responder .state-dot { background-color: var(--text-primary); box-shadow: 0 0 8px var(--text-primary); }
 .state-em-pausa .state-dot { background-color: #4B5563; }

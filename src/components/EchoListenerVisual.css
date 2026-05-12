@@ -1,167 +1,154 @@
 .echo-listener-container {
   position: relative;
-  width: 240px;
-  height: 240px;
+  width: 100%;
+  height: 100%; /* Take up the space of .visual-anchor */
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
 }
 
+/* Background diffuse glow behind the image */
 .listener-glow-bg {
   position: absolute;
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--bg-surface-hover) 0%, transparent 70%);
-  filter: blur(20px);
-  transition: all 1s ease;
-  z-index: 1;
-}
-
-.listener-abstract-shape {
-  position: relative;
-  width: 84px;
-  height: 110px;
-  background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%);
-  /* Head shape facing left */
-  border-radius: 50% 60% 50% 40% / 60% 50% 60% 40%; 
-  border-left: 1px solid rgba(255,255,255,0.15);
-  border-top: 1px solid rgba(255,255,255,0.05);
-  backdrop-filter: blur(8px);
-  z-index: 2;
-  box-shadow: -10px 10px 30px rgba(0,0,0,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.5s ease;
-}
-
-.listener-inner-curve {
-  position: absolute;
-  width: 30px;
-  height: 45px;
-  /* Ear shape suggestion */
-  border-radius: 40% 60% 50% 40%;
-  border-left: 1px solid rgba(255,255,255,0.1);
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-  right: 20px;
-  top: 35px;
-  opacity: 0.5;
-}
-
-.listener-core {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: var(--text-secondary);
-  box-shadow: 0 0 10px var(--text-secondary);
-  transition: all 0.5s ease;
-  position: absolute;
-  right: 28px;
-  top: 52px;
-}
-
-/* Waves container - entering the ear */
-.listener-waves {
-  position: absolute;
-  left: -40px;
   top: 50%;
-  transform: translateY(-50%);
-  width: 100px;
-  height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 150, 255, 0.12) 0%, transparent 65%);
+  filter: blur(25px);
   z-index: 1;
+  transition: all 0.8s ease;
+  pointer-events: none;
 }
 
-.wave {
+/* Subtle, fine exterior halos / aquatic rings */
+.listener-halo {
   position: absolute;
-  border-left: 2px solid var(--accent-secondary);
   border-radius: 50%;
-  opacity: 0;
+  border: 1px solid rgba(150, 240, 255, 0.15); /* Very thin, low opacity cyan */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1; /* Behind the sphere */
+  box-shadow: 0 0 15px rgba(0, 200, 255, 0.05), inset 0 0 15px rgba(0, 200, 255, 0.05); /* Gentle glow, not neon */
+  transition: all 0.8s ease;
+  pointer-events: none;
 }
 
-/* Particles container - in front of the profile (left side) */
-.listener-particles {
-  position: absolute;
-  left: -20px;
-  top: 30%;
-  width: 50px;
-  height: 80px;
-  z-index: 3;
-  opacity: 0;
+/* Desktop sizing for halos */
+.halo-1 { width: 360px; height: 360px; opacity: 0.6; }
+.halo-2 { width: 440px; height: 440px; opacity: 0.3; }
+.halo-3 { width: 520px; height: 520px; opacity: 0.1; border-color: rgba(150, 240, 255, 0.08); }
+
+/* The static image orb asset */
+.listener-orb-image {
+  position: relative;
+  z-index: 2;
+  width: 320px; /* Increased desktop size (from 260px) */
+  height: auto;
+  object-fit: contain;
+  transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+  margin-top: 0; /* Let it sit naturally in the center of the anchor */
 }
 
-.particle {
-  position: absolute;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background-color: var(--accent-primary);
-  box-shadow: 0 0 8px var(--accent-primary);
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .listener-orb-image { width: 260px; }
+  .halo-1 { width: 300px; height: 300px; }
+  .halo-2 { width: 360px; height: 360px; }
+  .halo-3 { width: 420px; height: 420px; }
+  .listener-glow-bg { width: 280px; height: 280px; }
 }
 
-/* STATES */
+@media (max-width: 480px) {
+  .listener-orb-image { width: 210px; }
+  .halo-1 { width: 240px; height: 240px; }
+  .halo-2 { width: 290px; height: 290px; }
+  .halo-3 { width: 340px; height: 340px; }
+  .listener-glow-bg { width: 240px; height: 240px; }
+}
+
+/* --- STATES --- */
 
 /* Pronta */
-.state-pronta .listener-core {
-  background-color: var(--text-secondary);
-  box-shadow: 0 0 10px var(--text-secondary);
+.state-pronta .listener-orb-image {
+  animation: float-image 4s ease-in-out infinite;
+}
+.state-pronta .listener-glow-bg {
+  animation: pulse-bg-glow 4s infinite;
+}
+.state-pronta .listener-halo {
+  animation: pulse-halo 4s infinite;
 }
 
 /* A ouvir */
-.state-a-ouvir .listener-core {
-  background-color: var(--accent-secondary);
-  box-shadow: 0 0 15px var(--accent-secondary);
+.state-a-ouvir .listener-orb-image {
+  transform: scale(1.05);
+  filter: brightness(1.1);
 }
 .state-a-ouvir .listener-glow-bg {
-  background: radial-gradient(circle, rgba(34, 211, 238, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(0, 200, 255, 0.2) 0%, transparent 65%);
+  animation: pulse-bg-glow 2s infinite;
 }
-.state-a-ouvir .wave {
-  animation: wave 2s infinite linear;
+.state-a-ouvir .listener-halo {
+  border-color: rgba(150, 240, 255, 0.25);
+  animation: wave-out 2s infinite linear;
 }
-.state-a-ouvir .wave-1 { animation-delay: 0s; width: 40px; height: 60px; right: 0; }
-.state-a-ouvir .wave-2 { animation-delay: 0.6s; width: 60px; height: 80px; right: 10px; }
-.state-a-ouvir .wave-3 { animation-delay: 1.2s; width: 80px; height: 100px; right: 20px; }
+.state-a-ouvir .halo-1 { animation-delay: 0s; }
+.state-a-ouvir .halo-2 { animation-delay: 1s; }
+.state-a-ouvir .halo-3 { animation-delay: 2s; }
 
 /* A pensar */
-.state-a-pensar .listener-core {
-  background-color: var(--accent-primary);
-  box-shadow: 0 0 20px var(--accent-primary);
-  animation: pulse-soft 1s infinite;
+.state-a-pensar .listener-orb-image {
+  animation: float-image 4s ease-in-out infinite;
+  filter: brightness(0.95);
 }
 .state-a-pensar .listener-glow-bg {
-  background: radial-gradient(circle, rgba(167, 139, 250, 0.15) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(0, 255, 255, 0.15) 0%, transparent 60%);
+  animation: pulse-bg-glow 1.5s infinite;
 }
-.state-a-pensar .listener-particles {
-  opacity: 1;
+.state-a-pensar .listener-halo {
+  animation: pulse-halo 1.5s infinite;
 }
-.state-a-pensar .p1 { top: 20%; left: 10%; animation: pulse-soft 1s infinite 0.2s; }
-.state-a-pensar .p2 { top: 50%; left: -5px; animation: pulse-soft 1.2s infinite 0.5s; }
-.state-a-pensar .p3 { top: 80%; left: 15%; animation: pulse-soft 0.8s infinite 0.8s; }
 
 /* A responder */
-.state-a-responder .listener-core {
-  background-color: var(--text-primary);
-  box-shadow: 0 0 15px var(--text-primary);
-}
-.state-a-responder .listener-abstract-shape {
+.state-a-responder .listener-orb-image {
   transform: scale(1.02);
-  box-shadow: -10px 10px 40px rgba(167, 139, 250, 0.1);
-  border-color: rgba(167, 139, 250, 0.3);
+  filter: brightness(1.15);
 }
 .state-a-responder .listener-glow-bg {
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-  animation: pulse-soft 2s infinite;
+  background: radial-gradient(circle, rgba(0, 150, 255, 0.25) 0%, transparent 70%);
 }
 
-/* Em pausa */
-.state-em-pausa .listener-abstract-shape {
-  opacity: 0.7;
+/* Em pausa / Erro */
+.state-em-pausa .listener-orb-image {
+  filter: grayscale(0.6) brightness(0.7);
+  opacity: 0.8;
 }
-.state-em-pausa .listener-core {
-  background-color: #4B5563;
-  box-shadow: none;
+.state-em-pausa .listener-glow-bg, .state-em-pausa .listener-halo {
+  opacity: 0.1;
+}
+
+/* --- KEYFRAMES --- */
+@keyframes float-image {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pulse-bg-glow {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  50% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.8; }
+}
+
+@keyframes pulse-halo {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  50% { transform: translate(-50%, -50%) scale(1.02); opacity: 0.7; }
+}
+
+@keyframes wave-out {
+  0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0; }
+  30% { opacity: 0.5; }
+  100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0; }
 }

@@ -2,8 +2,11 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 10px 16px 24px; /* extra bottom padding for mobile safe area */
-  border-top: 1px solid var(--border-color);
+  padding: 10px 16px 24px;
+  background: rgba(6, 20, 38, 0.4);
+  border-top: 1px solid rgba(37, 230, 240, 0.1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   z-index: 10;
 }
 
@@ -56,9 +59,9 @@
 }
 
 .center-item.active .nav-icon-wrapper {
-  background: rgba(167, 139, 250, 0.1);
+  background: rgba(37, 230, 240, 0.1);
   border-color: var(--accent-primary);
-  box-shadow: 0 0 15px rgba(167, 139, 250, 0.2);
+  box-shadow: 0 0 15px rgba(37, 230, 240, 0.3);
 }
 
 .center-item.active .nav-icon {

@@ -6,28 +6,16 @@ export default function EchoListenerVisual({ state = 'Pronta' }) {
   
   return (
     <div className={`echo-listener-container state-${normalizedState}`}>
-      {/* Background radial glow */}
+      {/* Subtle glow behind the image to integrate it with the background */}
       <div className="listener-glow-bg"></div>
       
-      {/* The abstract shape representing a listener / ear */}
-      <div className="listener-abstract-shape">
-        <div className="listener-inner-curve"></div>
-        <div className="listener-core"></div>
-      </div>
+      {/* Delicate aquatic halos behind the sphere */}
+      <div className="listener-halo halo-1"></div>
+      <div className="listener-halo halo-2"></div>
+      <div className="listener-halo halo-3"></div>
       
-      {/* Dynamic waves/particles depending on state */}
-      <div className="listener-waves">
-        <div className="wave wave-1"></div>
-        <div className="wave wave-2"></div>
-        <div className="wave wave-3"></div>
-      </div>
-      
-      {/* Particles for 'A pensar' state */}
-      <div className="listener-particles">
-        <div className="particle p1"></div>
-        <div className="particle p2"></div>
-        <div className="particle p3"></div>
-      </div>
+      {/* The static image orb asset */}
+      <img src="/sphere.png" alt="Echo Sphere" className="listener-orb-image" />
     </div>
   );
 }

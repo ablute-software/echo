@@ -2,14 +2,14 @@
 
 :root {
   /* Color Palette */
-  --bg-main: #06070B;
-  --bg-surface: rgba(255, 255, 255, 0.04);
-  --bg-surface-hover: rgba(255, 255, 255, 0.08);
-  --accent-primary: #A78BFA; /* Soft violet */
-  --accent-secondary: #22D3EE; /* Subtle cyan */
-  --text-primary: #F3F4F6;
-  --text-secondary: #9CA3AF;
-  --border-color: rgba(255, 255, 255, 0.08);
+  --bg-main: #061426;
+  --bg-surface: rgba(14, 86, 100, 0.15);
+  --bg-surface-hover: rgba(14, 86, 100, 0.3);
+  --accent-primary: #3BD6E8; /* Cyan */
+  --accent-secondary: #25E6F0; /* Teal/Cyan */
+  --text-primary: #EAF7FF;
+  --text-secondary: #8FA9BB;
+  --border-color: rgba(37, 230, 240, 0.15);
 
   /* Typography */
   --font-family: 'Inter', sans-serif;
@@ -51,13 +51,14 @@ input {
 /* Utilities */
 .glass {
   background: var(--bg-surface);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-color);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 .glow {
-  box-shadow: 0 0 40px rgba(167, 139, 250, 0.15);
+  box-shadow: 0 0 40px rgba(59, 214, 232, 0.15);
 }
 
 /* Animations */
@@ -65,10 +66,12 @@ input {
   0%, 100% {
     opacity: 1;
     transform: scale(1);
+    filter: brightness(1);
   }
   50% {
-    opacity: 0.8;
-    transform: scale(1.05);
+    opacity: 0.85;
+    transform: scale(1.03);
+    filter: brightness(1.2);
   }
 }
 

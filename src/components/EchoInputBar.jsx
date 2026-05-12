@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mic, Send } from 'lucide-react';
+import { Mic, Send, Sparkles } from 'lucide-react';
 import './EchoInputBar.css';
 
 export default function EchoInputBar({ onSend, isListening, toggleListen, disabled = false }) {
@@ -16,6 +16,9 @@ export default function EchoInputBar({ onSend, isListening, toggleListen, disabl
   return (
     <div className={`echo-input-container glass ${disabled ? 'disabled' : ''}`}>
       <form className="echo-input-form" onSubmit={handleSubmit}>
+        <div className="input-icon-prefix">
+          <Sparkles size={18} color="var(--accent-primary)" />
+        </div>
         <input
           type="text"
           className="echo-text-input"
