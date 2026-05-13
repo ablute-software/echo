@@ -107,44 +107,7 @@ export default async function handler(req, res) {
       messages: messages,
       temperature: 0.7,
       max_tokens: 800,
-      response_format: { 
-        type: "json_schema", 
-        json_schema: {
-          name: "echo_response",
-          strict: true,
-          schema: {
-            type: "object",
-            properties: {
-              visible_reply: { type: "string" },
-              speech_reply: { type: "string" },
-              mini_report: {
-                type: "object",
-                properties: {
-                  summary: { type: "string" },
-                  emotional_tone: { type: "string" },
-                  energy: { type: "string" },
-                  keywords: { type: "array", items: { type: "string" } },
-                  next_signal_to_explore: { type: "string" }
-                },
-                required: ["summary", "emotional_tone", "energy", "keywords", "next_signal_to_explore"],
-                additionalProperties: false
-              },
-              safety: {
-                type: "object",
-                properties: {
-                  risk_level: { type: "string" },
-                  requires_human_review: { type: "boolean" }
-                },
-                required: ["risk_level", "requires_human_review"],
-                additionalProperties: false
-              },
-              updated_conversation_summary: { type: "string" }
-            },
-            required: ["visible_reply", "speech_reply", "mini_report", "safety", "updated_conversation_summary"],
-            additionalProperties: false
-          }
-        }
-      },
+      response_format: { type: "json_object" },
       store: false
     });
 
