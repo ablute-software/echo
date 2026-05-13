@@ -1,5 +1,5 @@
 const STORAGE_KEY = 'echo_conversations';
-const CONTEXT_KEY = 'echo_user_context';
+const SUMMARY_KEY = 'echo_conversation_summary';
 
 export function getLocalTodayDate() {
   const now = new Date();
@@ -21,19 +21,16 @@ export function getConversation(date) {
   return convos.find(c => c.conversation_date === date);
 }
 
-export function getUserContext() {
-  const data = localStorage.getItem(CONTEXT_KEY);
-  if (!data) return {};
-  try {
-    return JSON.parse(data);
-  } catch (e) {
-    return {};
-  }
+export function getConversationSummary() {
+  const data = localStorage.getItem(SUMMARY_KEY);
+  if (!data) return "";
+  return data;
 }
 
-export function saveUserContext(contextObj) {
-  if (contextObj && Object.keys(contextObj).length > 0) {
-    localStorage.setItem(CONTEXT_KEY, JSON.stringify(contextObj));
+export function saveConversationSummary(summary) {
+  if (typeof summary === 'string' && summary.trim().length > 0) {
+    // Limit storage just in case
+    localStorage.setItem(SUMMARY_KEY, summary.slice(0, 500));
   }
 }
 
@@ -76,7 +73,7 @@ export function saveMessage(date, messageObj) {
 
 export function clearHistory() {
   localStorage.removeItem(STORAGE_KEY);
-  localStorage.removeItem(CONTEXT_KEY);
+  localStorage.removeItem(SUMMARY_KEY);
 }
 
 export function getHistorySummaries() {

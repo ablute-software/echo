@@ -53,10 +53,17 @@ export default function EchoInputBar({ onSend, isListening, toggleListen, disabl
         }
       }
 
-      setText(baseTextRef.current + finalTranscript + interimTranscript);
+      let fullText = baseTextRef.current + finalTranscript + interimTranscript;
+      if (fullText.length > 500) {
+        fullText = fullText.slice(0, 500);
+      }
+      setText(fullText);
       
       if (finalTranscript) {
         baseTextRef.current += finalTranscript;
+        if (baseTextRef.current.length > 500) {
+          baseTextRef.current = baseTextRef.current.slice(0, 500);
+        }
       }
     };
 
@@ -113,7 +120,7 @@ export default function EchoInputBar({ onSend, isListening, toggleListen, disabl
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (text.trim() && !disabled) {
+    if (text.trim() && text.length <= 500 && !disabled) {
       if (isListening && toggleListen) {
         toggleListen(); 
       }
@@ -141,11 +148,16 @@ export default function EchoInputBar({ onSend, isListening, toggleListen, disabl
           className="echo-text-input"
           placeholder={isListening ? "A ouvir..." : (isSupported ? "Escreve ou dita a tua mensagem..." : "Escreve a tua mensagem...")}
           value={text}
-          onChange={(e) => setText(e.target.value)}
+          onChange={(e) => setText(e.target.value.slice(0, 500))}
           disabled={disabled}
+          maxLength={500}
         />
         
-        {text.trim() && !isListening ? (
+        <div className={`char-counter ${text.length >= 500 ? 'limit-reached' : ''}`}>
+          {text.length}/500
+        </div>
+        
+        {text.trim() && text.length <= 500 && !isListening ? (
           <button type="submit" className="echo-action-btn send-btn animate-fade-in" disabled={disabled}>
             <Send size={20} />
           </button>

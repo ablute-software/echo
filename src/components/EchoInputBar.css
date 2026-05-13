@@ -94,3 +94,16 @@
   box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
   z-index: 20;
 }
+
+.char-counter {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  opacity: 0.6;
+  margin-right: 8px;
+  white-space: nowrap;
+}
+
+.char-counter.limit-reached {
+  color: #ef4444; /* red-500 */
+  opacity: 1;
+}

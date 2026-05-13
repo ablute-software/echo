@@ -7,8 +7,8 @@ import {
   getLocalTodayDate, 
   getConversation, 
   getAllConversations, 
-  getUserContext, 
-  saveUserContext, 
+  getConversationSummary, 
+  saveConversationSummary, 
   saveMessage, 
   clearHistory 
 } from '../utils/conversationStorage';
@@ -41,7 +41,7 @@ export default function Conversar() {
   const [isListening, setIsListening] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
   
-  const [userContext, setUserContext] = useState({});
+  const [conversationSummary, setConversationSummary] = useState("");
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -54,10 +54,10 @@ export default function Conversar() {
   useEffect(() => {
     const today = getLocalTodayDate();
     const existingConvo = getConversation(today);
-    const context = getUserContext();
+    const summary = getConversationSummary();
     const allConvos = getAllConversations();
     
-    setUserContext(context);
+    setConversationSummary(summary);
 
     if (existingConvo && existingConvo.messages.length > 0) {
       // Same-day return: load today's messages and continue
@@ -85,10 +85,10 @@ export default function Conversar() {
     }
   }, []);
 
-  // Update backend context quietly
+  // Update backend summary quietly
   useEffect(() => {
-    saveUserContext(userContext);
-  }, [userContext]);
+    saveConversationSummary(conversationSummary);
+  }, [conversationSummary]);
 
   // Scroll whenever messages array changes
   useEffect(() => {
@@ -101,7 +101,7 @@ export default function Conversar() {
     const newUserMsg = { id: Date.now(), sender: 'user', text };
     
     // Save locally
-    saveMessage(today, newUserMsg);
+    const savedUserMsg = saveMessage(today, newUserMsg);
     
     // Update state
     const updatedMessages = [...messages, newUserMsg];
@@ -109,40 +109,38 @@ export default function Conversar() {
     setErrorMsg(null);
     setAppState('A pensar');
     
-    // Send to API
-    const historyForApi = updatedMessages.slice(-10).slice(0, -1).map(msg => ({
-      role: msg.sender === 'user' ? 'user' : 'assistant',
-      content: msg.text
-    }));
-
     try {
       const response = await fetch('/api/echo/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: text,
-          history: historyForApi,
-          context: userContext
+          conversationSummary: conversationSummary,
+          conversationId: savedUserMsg.conversation_id
         })
       });
 
-      if (!response.ok) throw new Error('API Error');
+      if (!response.ok) {
+        if (response.status === 400) throw new Error("A mensagem está demasiado longa. Tenta resumir um pouco.");
+        if (response.status === 429) throw new Error("Chegámos ao limite temporário de mensagens. Tenta novamente mais tarde.");
+        throw new Error("Não consegui responder agora. Tenta novamente dentro de momentos.");
+      }
 
       const data = await response.json();
       if (data.error) throw new Error(data.error);
 
       setAppState('A responder');
       
-      // Update hidden user context if the backend provided new analysis
-      if (data.analysis && Object.keys(data.analysis).length > 0) {
-        setUserContext(prev => ({ ...prev, ...data.analysis }));
+      // Update hidden conversation summary if the backend provided one
+      if (data.updated_conversation_summary) {
+        setConversationSummary(data.updated_conversation_summary);
       }
       
       setTimeout(() => {
         const newEchoMsg = { 
           id: Date.now(), 
           sender: 'echo', 
-          text: data.reply
+          text: data.visible_reply || data.reply || "Não consegui formular uma resposta."
         };
         saveMessage(today, newEchoMsg);
         setMessages(prev => [...prev, newEchoMsg]);
@@ -152,7 +150,7 @@ export default function Conversar() {
     } catch (err) {
       console.error("Chat error:", err);
       setAppState('Erro');
-      setErrorMsg("Não consegui responder agora. Verifica a configuração da OpenAI.");
+      setErrorMsg(err.message || "Não consegui responder agora. Verifica a ligação.");
       setTimeout(() => setAppState('Pronta'), 4000);
     }
   };
