@@ -109,6 +109,18 @@ export default function Conversar() {
     setErrorMsg(null);
     setAppState('A pensar');
     
+    // Detetar se a última resposta da _echo terminou com uma pergunta
+    let lastAssistantAskedQuestion = false;
+    for (let i = messages.length - 1; i >= 0; i--) {
+      if (messages[i].sender === 'echo') {
+        const lastText = messages[i].text.trim();
+        if (lastText.endsWith('?')) {
+          lastAssistantAskedQuestion = true;
+        }
+        break; // Check only the last message from echo
+      }
+    }
+
     try {
       const response = await fetch('/api/echo/chat', {
         method: 'POST',
@@ -116,7 +128,8 @@ export default function Conversar() {
         body: JSON.stringify({
           message: text,
           conversationSummary: conversationSummary,
-          conversationId: savedUserMsg.conversation_id
+          conversationId: savedUserMsg.conversation_id,
+          lastAssistantAskedQuestion: lastAssistantAskedQuestion
         })
       });
 

@@ -34,7 +34,7 @@ export default async function handler(req, res) {
     return res.status(429).json({ error: 'rate_limited', message: 'Limite temporário atingido. Tenta novamente mais tarde.' });
   }
 
-  const { message, conversationSummary, conversationId } = req.body;
+  const { message, conversationSummary, conversationId, lastAssistantAskedQuestion } = req.body;
 
   // Input Validation
   if (!message || typeof message !== 'string' || message.trim().length === 0) {
@@ -53,14 +53,14 @@ export default async function handler(req, res) {
   // Mock Mode
   if (process.env.USE_MOCK_LLM === 'true') {
     const mockResponse = {
-      visible_reply: "Isto é uma resposta gerada localmente em modo Mock. Como te sentes com isso?",
-      speech_reply: "Isto é uma resposta gerada localmente em modo Moca. Como te sentes com isso?",
+      visible_reply: "Isto é uma resposta gerada localmente em modo Mock, sem perguntas adicionais.",
+      speech_reply: "Isto é uma resposta gerada localmente em modo Moca, sem perguntas adicionais.",
       mini_report: {
         summary: "Utilizador a testar o modo mock.",
         emotional_tone: "neutro",
         energy: "media",
         keywords: ["mock", "teste"],
-        next_signal_to_explore: "Nenhum"
+        conversation_hint: "Manter acompanhamento sem forçar."
       },
       safety: {
         risk_level: "none",
@@ -93,6 +93,10 @@ export default async function handler(req, res) {
     let systemPromptContent = echoSystemPrompt;
     if (conversationSummary) {
       systemPromptContent += `\n\n=== RESUMO DA CONVERSA ATÉ AGORA ===\n${conversationSummary}`;
+    }
+
+    if (lastAssistantAskedQuestion === true) {
+      systemPromptContent += `\n\n=== INSTRUÇÃO CRÍTICA ===\nA tua resposta anterior já terminou com uma pergunta. A tua próxima resposta (visible_reply) NÃO DEVE terminar com uma pergunta de todo, exceto em situação de segurança ou risco extremo. Valida a afirmação ou acompanha o pensamento de forma natural e pontua com um ponto final.`;
     }
 
     const messages = [
