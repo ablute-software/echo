@@ -96,7 +96,7 @@ export default async function handler(req, res) {
     }
 
     if (lastAssistantAskedQuestion === true) {
-      systemPromptContent += `\n\n=== INSTRUÇÃO CRÍTICA ===\nA tua resposta anterior já terminou com uma pergunta. A tua próxima resposta (visible_reply) NÃO DEVE terminar com uma pergunta de todo, exceto em situação de segurança ou risco extremo. Valida a afirmação ou acompanha o pensamento de forma natural e pontua com um ponto final.`;
+      systemPromptContent += `\n\n=== INSTRUÇÃO CRÍTICA ===\nA tua resposta anterior terminou com uma pergunta. Para evitar o efeito de interrogatório, a tua próxima resposta (visible_reply) DEVE começar por reagir ou comentar o que o utilizador disse. NÃO DEVES terminar com outra pergunta, a não ser que seja estritamente necessário para a conversa e só depois de um comentário substancial.`;
     }
 
     const messages = [
