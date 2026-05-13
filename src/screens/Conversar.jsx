@@ -15,24 +15,19 @@ import {
 import './Conversar.css';
 
 const FIRST_VISIT_GREETINGS = [
-  "Olá! Fala-me de algo que gostas mesmo de fazer quando tens tempo para ti.",
-  "Olá! Se eu fosse conhecer-te aos poucos, por onde achas que devia começar?",
-  "Olá! Conta-me uma coisa simples sobre ti — algo que faça parte do teu dia a dia.",
-  "Olá! Que tipo de momentos te fazem sentir mais tu?",
-  "Olá! O que é que costuma ocupar mais a tua cabeça nos últimos tempos?",
-  "Olá! Há alguma coisa que gostavas que eu percebesse sobre ti desde o início?",
-  "Olá! Que tipo de coisas te dão energia — mesmo que sejam pequenas?",
-  "Olá! Quando tens um dia pesado, o que costumas fazer para aguentar ou desligar?",
-  "Olá! Fala-me de uma coisa que gostas, uma coisa que te cansa, ou uma coisa que tens pensado ultimamente.",
-  "Olá! Não precisas de preparar nada. Conta-me só uma coisa sobre ti para começarmos."
+  "Olá. Estou aqui. Podemos ir com calma.",
+  "Olá. Não precisas de preparar nada.",
+  "Olá. Diz o que sair.",
+  "Olá. Podemos começar simples.",
+  "Olá. Sem pressão."
 ];
 
 const RETURNING_USER_GREETINGS = [
-  "Olá, bom ver-te de novo. O que tem ocupado a tua cabeça hoje?",
-  "Olá. Queres continuar de onde ficámos ou há outra coisa mais presente hoje?",
-  "Bem-vindo de volta. O que é que mudou desde a última vez que falámos?",
-  "Olá! Como estão as coisas por aí hoje?",
-  "Bom dia! (Ou boa tarde!) Há alguma coisa que queiras atirar cá para fora antes de começarmos?"
+  "Olá. Estou aqui. Podemos ir com calma.",
+  "Olá. Não precisas de preparar nada.",
+  "Olá. Diz o que sair.",
+  "Olá. Podemos ir aos poucos.",
+  "Olá. De volta, sem pressão."
 ];
 
 export default function Conversar() {
