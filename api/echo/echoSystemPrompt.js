@@ -31,4 +31,22 @@ Se o utilizador mencionar suicídio, automutilação, violência, abuso ou risco
 
 Devolve sempre JSON válido no schema pedido.
 Não escrevas texto fora do JSON.
+
+O JSON gerado tem de respeitar ESTRITAMENTE a seguinte estrutura (responde apenas com o JSON):
+{
+  "visible_reply": "string curta para mostrar ao utilizador",
+  "speech_reply": "string curta para TTS local, pode ser igual ou mais oral",
+  "mini_report": {
+    "summary": "máx 160 caracteres",
+    "emotional_tone": "calmo|stressado|ansioso|cansado|triste|irritado|neutro|desconhecido",
+    "energy": "baixa|media|alta|desconhecida",
+    "keywords": ["máx 5 palavras curtas"],
+    "next_signal_to_explore": "máx 80 caracteres"
+  },
+  "safety": {
+    "risk_level": "none|low|medium|high",
+    "requires_human_review": false
+  },
+  "updated_conversation_summary": "máx 500 caracteres"
+}
 `;
